@@ -1,16 +1,23 @@
 /* @flow */
 'use strict'
 
-require('./Connector.js')(Y)
-require('./Database.js')(Y)
-require('./Transaction.js')(Y)
-require('./Struct.js')(Y)
-require('./Utils.js')(Y)
-require('./Connectors/Test.js')(Y)
+import AbstractConnector from './Connector.js'
+Y.AbstractConnector = AbstractConnector
+import AbstractDatabase from './Database.js'
+Y.AbstractDatabase = AbstractDatabase
+import TransactionInterface from '/Transaction.js'
+Y.TransactionInterface = TransactionInterface
+import struct from './Struct.js'
+Y.struct = struct
+import utils from './Utils.js'
+Y.utils = utils
+import Test from './TestConnector.js'
+Y.Test = Test
 
 var requiringModules = {}
 
-module.exports = Y
+export default Y
+
 Y.requiringModules = requiringModules
 
 Y.extend = function (name, value) {
@@ -179,8 +186,4 @@ class YConfig {
       self.db = null
     })
   }
-}
-
-if (typeof window !== 'undefined') {
-  window.Y = Y
 }
