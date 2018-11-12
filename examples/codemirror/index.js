@@ -1,16 +1,13 @@
-/* global Y, CodeMirror */
+/* eslint-env browser */
+import * as Y from '../../src/index.js'
+import WebsocketProvider from '../../provider/websocket/WebSocketProvider.js'
 
-let y = new Y('codemirror-example', {
-  connector: {
-    name: 'websockets-client',
-    url: 'http://127.0.0.1:1234'
-  }
-})
+const provider = new WebsocketProvider('ws://localhost:1234/')
+const ydocument = provider.get('textarea')
+const type = ydocument.define('textarea', Y.Text)
+const textarea = document.querySelector('textarea')
+const binding = new Y.CodemirrorBinding(type, textarea)
 
-window.yCodeMirror = y
-
-var editor = CodeMirror(document.querySelector('#codeMirrorContainer'), {
-  mode: 'javascript',
-  lineNumbers: true
-})
-y.define('codemirror', Y.Text).bindCodeMirror(editor)
+window.CodemirrorExample = {
+  provider, ydocument, type, textarea, binding
+}
